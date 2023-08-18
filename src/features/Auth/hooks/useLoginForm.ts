@@ -37,8 +37,10 @@ export default function useLoginForm() {
             return error.fields.forEach((field: any) => form.setError(field, { message: error.message }))
         }
 
-        setValue(data.endpoint)
-        return router.replace("/apps")
+        if (payload.ok) {
+            setValue(data.endpoint)
+            return router.replace("/apps")
+        }
     })
 
     return {

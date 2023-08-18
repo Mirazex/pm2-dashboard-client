@@ -39,7 +39,7 @@ export default function Header() {
     const session = useSession();
 
     return (
-        <Flex className={classes.wrapper} w={"100%"} mih={68} p={16}>
+        <Flex className={classes.wrapper} w={"100%"} mih={68} py={16} px={48}>
             <Group spacing={8} sx={{ flex: 1 }} position="left">
                 <Link className={classes.logo} href={"/"} scroll={true}>
                     <Text color="blue.5" weight={600} size={20} lh={"20px"}>
@@ -52,13 +52,13 @@ export default function Header() {
             </Group>
 
             <Group>
-            {session.data?.authorization.token && (
+            {session.data?.user.token && (
                 <EndpointSelector />
             )}
             </Group>
 
             <Group sx={{ flex: 1}} position="right">
-            {session.data?.authorization.token && (
+            {session.data?.user.token && (
                 <Button
                     variant="default"
                     color="dark"

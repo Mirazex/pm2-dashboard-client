@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 
 declare module "next-auth" {
     interface Session {
-        authorization: {
+        user: {
             endpoint: string;
             token: string;
             expire: number;

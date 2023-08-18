@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 
 
 type TMutationProps = {
-    queryKey: string | string[];
+    queryKey: string | string[] | any;
 }
 
 type MutationOptions = {
@@ -26,7 +26,7 @@ export default function useAppControl({ queryKey }: TMutationProps): UseMutation
         mutationFn: ({ type, appId }) => {
             return api.post(`${endpoint}/apps/${appId}/${type}`, {}, {
                 headers: {
-                    Authorization: `Bearer ${session.data?.authorization?.token}`
+                    Authorization: `Bearer ${session.data?.user?.token}`
                 }
             });
         },

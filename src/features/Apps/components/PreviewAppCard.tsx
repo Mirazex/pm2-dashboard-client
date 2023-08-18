@@ -1,88 +1,63 @@
 import { Icon } from "@iconify/react";
-import { Badge, Button, Card, Grid, Group, Text, useMantineTheme } from "@mantine/core";
+import { Badge, Card, Flex, Grid, Group, Stack, Text } from "@mantine/core";
 import Link from "next/link";
-import useAppControl from "../hooks/useAppControl";
+import { useHover } from '@mantine/hooks';
 
 type AppCardProps = {
     app: any
 }
 
 export default function PreviewAppCard({ app}: AppCardProps) {
-    const theme = useMantineTheme()
-
-    const reload = useAppControl({ queryKey: "APPS" })
-    const restart = useAppControl({ queryKey: "APPS" })
-    const stop = useAppControl({ queryKey: "APPS" })
+    const { hovered, ref } = useHover();
 
     return (
-        <Grid.Col key={app.pm_id} lg={6} xl={4} span={12}>
-            <Card shadow="sm" padding="lg" radius="md">
-                <Card.Section py="md" px={"md"}>
+        <Link href={`/apps/${app.pm_id}`} style={{ textDecoration: 'none' }}>
+            <Card ref={ref} shadow={hovered ? "sm" : "xs"} padding={24} radius="md" sx={{ cursor: "pointer", transition: "box-shadow .250s ease" }}>
+                <Card.Section py={24} px={24}>
                     <Group position="apart">
-                        <Group spacing={8}>
-                            <Icon icon="fluent:box-16-regular" color={theme.colors.blue['9']} fontSize={20} />
-                            <Text color="black.9" weight={500} size={"lg"}>{app.name}</Text>
+                        <Group align="center">
+                            <Group spacing={16}>
+                                <Flex bg={"dark.9"} w={32} h={32} align={"center"} justify={"center"} sx={{ borderRadius: 50 }}>
+                                    <Icon icon="fluent:box-16-regular" color={"white"} fontSize={20} />
+                                </Flex>
+                                <Text color="black.9" weight={500} size={"lg"}>{app.name}</Text>
+                            </Group>
                         </Group>
                         <Group>
-                            <Badge color={app.status === "online" ? "teal" : "red"}>{app.status}</Badge>
+                            <Badge size="md" radius={4} color={app.status === "online" ? "teal" : "red"}>{app.status}</Badge>
                         </Group>
                     </Group>
                 </Card.Section>
-                <Card.Section withBorder py="xl" px={"md"}>
+                <Card.Section py={24} px={24}>
                     <Grid>
-                        <Grid.Col span={6}>
-                            <Group spacing={6}>
-                                <Text color={"gray"} weight={500}>ID:</Text>
-                                <Text color={"orange"}>{app.pm_id}</Text>
+                        <Grid.Col span={12/3}>
+                            <Group position="left">
+                                <Stack spacing={8}>
+                                    <Text color={"gray.6"} weight={400} fs={"13px"} lh={"14px"} transform="capitalize">Uptime</Text>
+                                    <Text color={"dark.9"} weight={500} fs="14px" lh="16px" transform="capitalize" truncate>{app?.uptime}</Text>
+                                </Stack>
                             </Group>
                         </Grid.Col>
-                        <Grid.Col span={6}>
-                            <Group spacing={6}>
-                                <Text color={"gray"} weight={500}>Uptime:</Text>
-                                <Text color={"orange"}>{app.uptime}</Text>
+                        <Grid.Col span={12/3}>
+                            <Group position="center">
+                                <Stack spacing={8}>
+                                    <Text color={"gray.6"} weight={400} fs={"13px"} lh={"14px"} transform="capitalize">CPU</Text>
+                                    <Text color="orange" weight={500} fs="14px" lh="16px" truncate>{app?.cpu}%</Text>
+                                </Stack>
                             </Group>
                         </Grid.Col>
-                        <Grid.Col span={6}>
-                            <Group spacing={6}>
-                                <Text color={"gray"} weight={500}>CPU:</Text>
-                                <Text color={"orange"}>{app.cpu}%</Text>
-                            </Group>
-                        </Grid.Col>
-                        <Grid.Col span={6}>
-                            <Group spacing={6}>
-                                <Text color={"gray"} weight={500}>Memory:</Text>
-                                <Text color={"orange"}>{app.memory}</Text>
+                        <Grid.Col span={12/3}>
+                            <Group position="right">
+                                <Stack spacing={8}>
+                                    <Text color={"gray.6"} weight={400} fs={"13px"} lh={"14px"} transform="capitalize">Memory</Text>
+                                    <Text color={"orange"} weight={500} fs="14px" lh="16px" transform="capitalize" truncate>{app?.memory}</Text>
+                                </Stack>
                             </Group>
                         </Grid.Col>
                     </Grid>
                 </Card.Section>
-                <Card.Section py="md" px={"md"}>
-                    <Grid>
-                        <Grid.Col span={12/4}>
-                            <Button onClick={() => reload.mutateAsync({ appId: app.pm_id, type: "reload" })} loading={reload.isLoading} radius={20} variant="outline" color={"green"} fullWidth fw={500} uppercase leftIcon={
-                                <Icon icon="fluent:arrow-sync-circle-24-regular" fontSize={20} />
-                            }><Text>Reload</Text></Button>
-                        </Grid.Col>
-                        <Grid.Col span={12/4}>
-                            <Button onClick={() => restart.mutateAsync({ appId: app.pm_id, type: "restart" })} loading={restart.isLoading} radius={20} variant="outline" color={"blue"} fullWidth fw={500} uppercase leftIcon={
-                                <Icon icon="fluent:arrow-clockwise-24-filled" fontSize={20} />
-                            }>Restart</Button>
-                        </Grid.Col>
-                        <Grid.Col span={12/4}>
-                            <Button onClick={() => stop.mutateAsync({ appId: app.pm_id, type: "stop" })} loading={stop.isLoading} radius={20} variant="outline" color={"red"} fullWidth fw={500} uppercase leftIcon={
-                                <Icon icon="fluent:record-stop-24-filled" fontSize={20} />
-                            }>Stop</Button>
-                        </Grid.Col>
-                        <Grid.Col span={12/4}>
-                            <Link href={`/apps/${app.pm_id}`}>
-                                <Button radius={20} variant="filled" color={"indigo"} fullWidth fw={500} uppercase leftIcon={
-                                    <Icon icon="fluent:textbox-24-regular" fontSize={20} />
-                                }>Logs</Button>
-                            </Link>
-                        </Grid.Col>
-                    </Grid>
-                </Card.Section>
+
             </Card>
-        </Grid.Col>
+        </Link>
     )
 }

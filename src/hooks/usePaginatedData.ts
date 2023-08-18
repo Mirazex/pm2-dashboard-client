@@ -42,7 +42,7 @@ export default function usePaginatedData({queryKey, path, defaultLimit = 10, req
     const fetchData = () => {
         return api.get(`${endpoint}${path}?${qs}`, {
             headers: {
-                Authorization: `Bearer ${session.data?.authorization?.token}`
+                Authorization: `Bearer ${session.data?.user?.token}`
             }
         }).then(res => res.data.data)
     }

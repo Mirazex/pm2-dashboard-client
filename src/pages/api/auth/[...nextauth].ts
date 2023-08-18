@@ -34,22 +34,23 @@ const providers: NextAuthOptions["providers"] = [
 ];
 
 const callbacks: NextAuthOptions["callbacks"] = {
-    async jwt({ token, user }: any) {
-        if (!token.authorization) {
-            token.authorization = {};
+    async jwt({ token, user, account }: any) {
+        if (account && user) {
+            console.log("Initial sign in", {account, user})
+            return { user }
         }
 
-        if (user) {
-            token.authorization = user
+
+        if (Date.now() < token.user.expire) {
+            console.log("Token is not expired", Date.now(), token.user.expire)
+            return token;
         }
 
-        const shouldRefreshTime = Math.round(token.authorization.expire - 60 * 60 * 1000 - Date.now());
-        if (shouldRefreshTime > 0) return token;
-
-        return token;
+        console.log("Token is expired", token.user.expire)
+        return { user }
     },
     session({ session, token }) {
-        session.authorization = token.authorization as any;
+        session.user = token.user as any;
 
         return session;
     },

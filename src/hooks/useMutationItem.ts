@@ -34,13 +34,13 @@ export default function useMutationItem({ path, queryKey, type = "create", requi
 
             if (method === "delete") return api.delete(`${endpoint}{url}`, {
                 headers: {
-                    Authorization: `Bearer ${session.data?.authorization?.token}`
+                    Authorization: `Bearer ${session.data?.user?.token}`
                 }
             })
 
             return api[method](`${endpoint}{url}`, data, {
                 headers: {
-                    Authorization: `Bearer ${session.data?.authorization?.token}`
+                    Authorization: `Bearer ${session.data?.user?.token}`
                 }
             });
         },
