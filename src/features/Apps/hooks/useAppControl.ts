@@ -4,23 +4,18 @@ import {UseMutationResult, useMutation, useQueryClient} from "@tanstack/react-qu
 import { useSession } from "next-auth/react";
 
 
-type TMutationProps = {
-    queryKey: string | string[] | any;
-}
-
 type MutationOptions = {
     appId: string;
     type: "reload" | "restart" | "stop";
 }
 
-export default function useAppControl({ queryKey }: TMutationProps): UseMutationResult<unknown, unknown, MutationOptions> {
+export default function useAppControl(): UseMutationResult<unknown, unknown, MutationOptions> {
     const session = useSession()
     const endpoint = useEndpoint(state => state.endpoint)
     if (!session.data) throw new Error('Authenticated wrapper required')
 
     const queryClient = useQueryClient();
 
-    const queryString = Array.isArray(queryKey) ? queryKey : [queryKey];
 
     return useMutation({
         mutationFn: ({ type, appId }) => {
@@ -30,8 +25,9 @@ export default function useAppControl({ queryKey }: TMutationProps): UseMutation
                 }
             });
         },
-        onSuccess: async () => {
-            await queryClient.invalidateQueries([...queryString])
+        onSuccess: async (data, variables) => {
+            await queryClient.invalidateQueries(["APP", { appId: String(variables.appId) }])
+            await queryClient.invalidateQueries(["APPS"])
         }
     })
 }

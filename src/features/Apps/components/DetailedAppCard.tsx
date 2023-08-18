@@ -1,14 +1,13 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { Badge, Button, Card, Grid, Group, Stack, Text, useMantineTheme } from "@mantine/core";
-import Link from "next/link";
+import { Badge, Button, Card, Grid, Group, Text, useMantineTheme } from "@mantine/core";;
 import useAppControl from "../hooks/useAppControl";
 
 export default function DetailedAppCard({ app }: { app: any }) {
     const theme = useMantineTheme();
 
-    const reload = useAppControl({ queryKey: ["APP", { appId: app.pm_id }] })
-    const restart = useAppControl({ queryKey: ["APP", { appId: app.pm_id }] })
-    const stop = useAppControl({ queryKey: ["APP", { appId: app.pm_id }] })
+    const reload = useAppControl()
+    const restart = useAppControl()
+    const stop = useAppControl()
 
     return (
         <Card shadow="sm" padding="lg" radius="md">

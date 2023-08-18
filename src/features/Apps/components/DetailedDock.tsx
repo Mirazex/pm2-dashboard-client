@@ -8,9 +8,9 @@ export default function DetailedAppDock() {
 
     const theme = useMantineTheme()
 
-    const reload = useAppControl({ queryKey: ["APP", { appId: String(data?.pm_id) }] })
-    const restart = useAppControl({ queryKey: ["APP", { appId: String(data?.pm_id) }] })
-    const stop = useAppControl({ queryKey: ["APP", { appId: String(data?.pm_id) }] })
+    const reload = useAppControl()
+    const restart = useAppControl()
+    const stop = useAppControl()
 
     return (
         <Group bg={"white"} py={48} px={48} w={"100%"} sx={{ boxShadow: "inset 0 -1px 0 0 rgba(0, 0, 0, 0.1)" }} position="apart" spacing={0}>
