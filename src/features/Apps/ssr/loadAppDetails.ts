@@ -3,6 +3,7 @@ import { getSession } from "next-auth/react";
 import getApps from "../api/getApps";
 import cookies from "universal-cookie"
 import getAppDetails from "../api/getAppDetails";
+import getLogByType from "@/features/Logs/api/getLogByType";
 
 export async function loadAppDetails(ctx: any) {
     const endpoint = new cookies(ctx.req.headers.cookie).get("endpoint")

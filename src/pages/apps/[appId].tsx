@@ -11,7 +11,7 @@ const robotoMono = Roboto_Mono({
     weight: ["400", "500", "600", "700"],
 });
 
-export const getServerSideProps = withCSR(loadAppDetails);
+export const getServerSideProps = loadAppDetails;
 
 export default function AppDetails() {
     const { isLoading, items, isFetchingNextPage, hasNextPage, fetchNextPage } = useLogs({

@@ -4,15 +4,17 @@ import { useEndpoint } from "@/stores/useEndpoint";
 import { useRouter } from "next/router";
 import getLogByType from "../api/getLogByType";
 
-export default function useLogs({ limit = 10 }) {
-    const endpoint = useEndpoint((state) => state.endpoint);
+export default function useLogs({ limit = 30 }) {
+    const endpoint = useEndpoint((state: any) => state.endpoint);
     const session = useSession();
     const router = useRouter();
 
     if (!session.data) throw new Error("Authenticated wrapper required");
 
+    console.log(router)
+
     const { data, ...options } = useInfiniteQuery({
-        queryKey: ["APP_LOGS", { appId: router.query.appId, type: (router.query.type as any) ?? "logs" }, { limit }],
+        queryKey: ["APP_LOGS", { appId: String(router.query.appId), type: (router.query.type as any) ?? "logs" }, { limit }],
         queryFn: ({ pageParam }) =>  getLogByType({
             endpoint: endpoint as string,
             accessToken: session.data?.user.token as string,

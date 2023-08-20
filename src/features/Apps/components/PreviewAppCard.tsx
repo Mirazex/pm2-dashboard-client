@@ -21,7 +21,7 @@ export default function PreviewAppCard({ app }: AppCardProps) {
     const { hovered, ref } = useHover();
 
     return (
-        <Link href={`/apps/${app.id}`} style={{ textDecoration: 'none' }}>
+        <Link href={`/apps/${app.id}?type=logs`} style={{ textDecoration: 'none' }}>
             <Card ref={ref} shadow={hovered ? "sm" : "xs"} padding={24} radius="md" sx={{ cursor: "pointer", transition: "box-shadow .250s ease" }}>
                 <Card.Section py={24} px={24}>
                     <Group position="apart" align="flex-start">
