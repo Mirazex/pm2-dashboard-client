@@ -18,7 +18,7 @@ const poppins = Poppins({
 
 const theme: MantineProviderProps["theme"] = {
     colorScheme: "light",
-    fontFamily: poppins.style.fontFamily,
+    fontFamily: `${poppins.style.fontFamily}`,
 };
 
 const config = {

@@ -1,9 +1,13 @@
 import { Icon } from "@iconify/react";
-import { Box, Button, Group, Menu, Stack, Text, createStyles, useMantineTheme } from "@mantine/core";
+import { ActionIcon, Box, Button, Group, Menu, Stack, Text, createStyles, useMantineTheme } from "@mantine/core";
 import useAppControl from "@/features/Apps/hooks/useAppControl";
 import useAppDetails from "@/features/Apps/hooks/useAppDetails";
 import { humanizeMemorySize, humanizeUptime } from "@/utils/formatter";
 import Link from "next/link";
+import { Fragment } from "react";
+import { useModal } from "@/stores/useModal";
+import EnvModal from "./EnvModal";
+import Modal from "@/components/Modal";
 
 const Statuses = {
     online: "Ready",
@@ -22,6 +26,7 @@ const useStyles = createStyles(() => ({
 
 export default function DetailedAppDock() {
     const { data, refetch, isFetching } = useAppDetails();
+    const modal = useModal();
 
     const theme = useMantineTheme()
     const { classes } = useStyles();
@@ -179,12 +184,27 @@ export default function DetailedAppDock() {
 
                 <Group spacing={16}>
                     <Stack spacing={0} maw={140} w={140} sx={{ flex: "auto" }}>
-                        <Text color={"dimmed"} weight={400} size={13} lh={"18px"} transform="capitalize" mb={8}>Environment</Text>
-                        <Stack spacing={8}>
-                            <Group spacing={8}>
-                                <Text weight={500} size={14} lh="18px" color="dark.4" transform="capitalize">{data?.environment?.NODE_ENV ?? "Production"}</Text>
-                            </Group>
-                        </Stack>
+                        <Group spacing={8} align="flex-start">
+                            <Stack spacing={0}>
+                                <Text color={"dimmed"} weight={400} size={13} lh={"18px"} transform="capitalize" mb={8}>Environment</Text>
+                                <Stack spacing={8}>
+                                    <Group spacing={8}>
+                                        <Text weight={500} size={14} lh="18px" color="dark.4" transform="capitalize">{data?.environment?.NODE_ENV ?? "Production"}</Text>
+                                    </Group>
+                                </Stack>
+                            </Stack>
+                            {data?.environment && (
+                                <Fragment>
+                                    <ActionIcon onClick={() => modal.setOpen({ type: "view", payload: data?.environment , name: "Environment Variables" })} variant="light" color="gray.8" radius={50} fw={500}>
+                                        <Icon icon={"fluent:document-lock-20-regular"} fontSize={20} />
+                                    </ActionIcon>
+
+                                    <Modal opened={modal.open && ["Environment Variables"].includes(modal.name)} onClose={modal.setClose} onTransitionEnd={modal.clear} title={modal.name} centered>
+                                        <EnvModal />
+                                    </Modal>
+                                </Fragment>
+                            )}
+                        </Group>
                     </Stack>
                 </Group>
 
