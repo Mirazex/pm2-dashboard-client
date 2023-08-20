@@ -4,7 +4,7 @@ import { Button, Flex, Group, Text, createStyles } from "@mantine/core";
 import dynamic from "next/dynamic";
 import { Fragment } from "react";
 
-const EndpointSelector = dynamic(() => import("@/components/EndpointSelector"), { ssr: false });
+const EndpointSelector = dynamic(() => import("../EndpointSelector") as any, { ssr: false });
 
 const useStyles = createStyles(() => ({
     wrapper: {

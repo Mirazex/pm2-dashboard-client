@@ -7,7 +7,7 @@ export const config = {
 
 export default withAuth(
     function middleware(req: NextRequestWithAuth) {
-        const isAuth = !!req.nextauth.token?.user?.token;
+        const isAuth = !!(req.nextauth.token?.user as any)?.token;
 
         if (req.nextUrl.pathname === "/") {
             return NextResponse.redirect(new URL(!isAuth ? "/auth/login" : "/apps", req.url));
