@@ -14,7 +14,7 @@ export default async function getApps(options: TRequestOptions) {
             },
         });
 
-        return response.data.data;
+        return response.data.data as Application[];
     } catch (e: any) {
         console.log(e)
         if (e.response.data.code === 5) {

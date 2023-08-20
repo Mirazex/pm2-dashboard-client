@@ -10,7 +10,7 @@ export default function EnvModal() {
         <Stack spacing={0}>
             <Stack spacing={24}>
                 {values.map((key) => (
-                    <Group key={key} spacing={4} w={"100%"} noWrap>
+                    <Group key={key} spacing={24} w={"100%"} noWrap>
                         <TextInput
                             label="Key"
                             variant="filled"

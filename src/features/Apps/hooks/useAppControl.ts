@@ -25,7 +25,7 @@ export default function useAppControl(): UseMutationResult<unknown, unknown, Mut
                 }
             });
         },
-        onSuccess: async (data, variables) => {
+        onSuccess: async (_, variables) => {
             await queryClient.invalidateQueries(["APP", { appId: String(variables.appId) }])
             await queryClient.invalidateQueries(["APPS"])
         }

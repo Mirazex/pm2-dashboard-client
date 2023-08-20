@@ -15,7 +15,7 @@ export default async function getAppDetails(options: TRequestOptions) {
             },
         });
 
-        return response.data.data;
+        return response.data.data as ApplicationDetails;
     } catch (e: any) {
         console.log(e)
         if (e.response.data.code === 5) {

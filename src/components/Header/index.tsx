@@ -7,23 +7,10 @@ const EndpointSelector = dynamic(() => import("@/components/EndpointSelector"), 
 
 const useStyles = createStyles(() => ({
     wrapper: {
-        position: "fixed",
-        top: 0,
-        zIndex: 101,
+        position: "relative",
         backgroundColor: "rgba(255, 255, 255, 0.8)",
         boxShadow: "inset 0 -1px 0 0 rgba(0, 0, 0, 0.1)",
         transition: "box-shadow .1s ease 0s, background-color .1s ease 0s",
-        "&:before": {
-            content: "''",
-            position: "absolute",
-            width: "100%",
-            height: "100%",
-            backdropFilter: "saturate(180%) blur(5px)",
-            backfaceVisibility: "hidden",
-            zIndex: -1,
-            top: -1,
-            transform: "translateZ(0)",
-        },
     },
     logo: {
         height: "100%",
@@ -39,7 +26,7 @@ export default function Header() {
     const session = useSession();
 
     return (
-        <Flex className={classes.wrapper} w={"100%"} mih={68} py={16} px={48}>
+        <Flex className={classes.wrapper} w={"100%"} py={16} px={48}>
             <Group spacing={8} sx={{ flex: 1 }} position="left">
                 <Link className={classes.logo} href={"/"} scroll={true}>
                     <Text color="blue.5" weight={600} size={20} lh={"20px"}>

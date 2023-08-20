@@ -10,6 +10,7 @@ export default function LoginPage() {
     return (
         <CenteredLayout>
             <Stack spacing={0} w={"100%"} maw={460} p={20}>
+            <form>
                 <Stack spacing={0} my={12}>
                     <Text align="center" size={32} weight={600} color={"dark.9"} inline>
                         Login to
@@ -68,20 +69,23 @@ export default function LoginPage() {
 
                 <Divider my="0" color="gray.2" />
 
-                <Group my={24}>
-                    <Button
-                        size="md"
-                        radius="md"
-                        fullWidth
-                        variant="filled"
-                        color="dark.9"
-                        fw={500}
-                        loading={form.formState.isSubmitting}
-                        onClick={login}
-                    >
-                        Login
-                    </Button>
-                </Group>
+
+                    <Group my={24}>
+                        <Button
+                            size="md"
+                            radius="md"
+                            fullWidth
+                            variant="filled"
+                            color="dark.9"
+                            fw={500}
+                            loading={form.formState.isSubmitting}
+                            onClick={login}
+                            type="submit"
+                            >
+                            Login
+                        </Button>
+                    </Group>
+                </form>
             </Stack>
         </CenteredLayout>
     );
