@@ -44,7 +44,7 @@ export default function Header() {
         <Flex className={classes.wrapper} w={"100%"} mih={68} py={16} px={48}>
             <Group spacing={8} sx={{ flex: 1 }} position="left">
                 <Link className={classes.logo} href={"/"} scroll={true}>
-                    <Text color="blue.5" weight={600} size={20} lh={"20px"}>
+                    <Text color="green" weight={600} size={20} lh={"20px"}>
                         PM2{" "}
                         <Text color="dark.9" span>
                             Dashboard

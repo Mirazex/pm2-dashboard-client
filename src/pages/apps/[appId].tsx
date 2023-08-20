@@ -1,4 +1,3 @@
-import withCSR from "@/utils/withCSR";
 import AppLayout from "@/layouts/AppLayout";
 import { loadAppDetails } from "@/features/Apps/ssr/loadAppDetails";
 import { Button, Group, Loader, Text } from "@mantine/core";

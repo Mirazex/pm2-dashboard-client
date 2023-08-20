@@ -15,7 +15,7 @@ export default function LoginPage() {
                     <Text align="center" size={32} weight={600} color={"dark.9"} inline>
                         Login to
                     </Text>
-                    <Text align="center" size={32} weight={600} color={"violet"}>
+                    <Text align="center" size={32} weight={600} color={"green"}>
                         PM2 Dashboard
                     </Text>
                 </Stack>
