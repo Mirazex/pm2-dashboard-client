@@ -42,7 +42,6 @@ const callbacks: NextAuthOptions["callbacks"] = {
 
 
         if (Date.now() < token.user.expire) {
-            console.log("Token is not expired", Date.now(), token.user.expire)
             return token;
         }
 

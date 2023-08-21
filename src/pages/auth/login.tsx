@@ -1,11 +1,12 @@
-import { servers } from "@/constants/servers";
 import useLoginForm from "@/features/Auth/hooks/useLoginForm";
 import CenteredLayout from "@/layouts/CenteredLayout";
+import { useServers } from "@/stores/useServers";
 import { Button, Divider, Group, Select, Stack, Text, TextInput } from "@mantine/core";
 import { Controller } from "react-hook-form";
 
 export default function LoginPage() {
     const { form, login } = useLoginForm();
+    const servers = useServers();
 
     return (
         <CenteredLayout>
@@ -23,16 +24,35 @@ export default function LoginPage() {
                 <Stack spacing={24} my={24}>
                     <Controller name={"endpoint"} control={form.control} render={({ field, fieldState }) => (
                         <Select
-                            placeholder="Pick one server"
+                            placeholder="Start typing for select or create endpoint"
                             label="Endpoint"
                             variant="filled"
                             radius="md"
                             size="md"
                             withAsterisk
-                            data={servers.map((v) => ({ value: v, label: v }))}
+                            data={servers.endpoints}
                             value={field.value}
                             onChange={field.onChange}
                             error={fieldState.error?.message}
+                            nothingFound="Nothing found"
+                            searchable
+                            creatable
+                            getCreateLabel={(query) => `+ Create ${query}`}
+                            onCreate={servers.add}
+                            styles={(theme) => ({
+                                item: {
+                                    fontWeight: 500,
+                                    // applies styles to selected item
+                                    "&[data-selected]": {
+                                        "&, &:hover": {
+                                            backgroundColor: theme.colors.green,
+                                        },
+                                    },
+
+                                    // applies styles to hovered item (with mouse or keyboard)
+                                    "&[data-hovered]": {},
+                                },
+                            })}
                         />
                     )} />
 

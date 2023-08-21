@@ -4,6 +4,7 @@ import * as yup from "yup"
 import { signIn } from "next-auth/react"
 import { useRouter } from "next/router"
 import { useEndpoint } from "@/stores/useEndpoint"
+import { useServers } from "@/stores/useServers"
 
 const ErrorMessages: Record<number, { fields: string[], message: string }> = {
     422: { fields: ["password", "username"], message: "Invalid credentials" },
@@ -13,6 +14,7 @@ const ErrorMessages: Record<number, { fields: string[], message: string }> = {
 export default function useLoginForm() {
     const router = useRouter();
     const { endpoint, setValue } = useEndpoint()
+    const servers = useServers(state => state.endpoints);
 
     const form = useForm({
         resolver: yupResolver(yup.object().shape({
@@ -21,7 +23,7 @@ export default function useLoginForm() {
             password: yup.string().required(),
         })),
         defaultValues: {
-            endpoint: endpoint ?? "",
+            endpoint: endpoint || servers[0] || "",
             username: "",
             password: "",
         }

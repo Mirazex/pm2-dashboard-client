@@ -11,8 +11,6 @@ export default function useLogs({ limit = 30 }) {
 
     if (!session.data) throw new Error("Authenticated wrapper required");
 
-    console.log(router)
-
     const { data, ...options } = useInfiniteQuery({
         queryKey: ["APP_LOGS", { appId: String(router.query.appId), type: (router.query.type as any) ?? "logs" }, { limit }],
         queryFn: ({ pageParam }) =>  getLogByType({
