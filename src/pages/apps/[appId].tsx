@@ -4,6 +4,7 @@ import { Button, Group, Loader, Text } from "@mantine/core";
 import LogTab from "@/components/LogTab";
 import useLogs from "@/features/Logs/hooks/useLogs";
 import { Roboto_Mono } from "next/font/google";
+import dayjs from "dayjs";
 
 const robotoMono = Roboto_Mono({
     subsets: ["latin"],
@@ -47,11 +48,12 @@ export default function AppDetails() {
                     <tr key={idx}>
                         <td style={{ paddingLeft: 24, paddingRight: 24, paddingTop: 2, paddingBottom: 2 }}>
                             <Text span size={14} color={"dark.9"} ff={robotoMono.style.fontFamily} truncate>
-                                18:29:59.460
+                                {/* format date to humanize */}
+                                {dayjs(line.timestamp).format("YYYY/MM/DD HH:mm:ss")}
                             </Text>
                         </td>
                         <td style={{ paddingRight: 24, paddingTop: 2, paddingBottom: 2, width: "100%" }}>
-                            <Text span size={14} color={"dark.9"} ff={robotoMono.style.fontFamily}>{line}</Text>
+                            <Text span size={14} color={"dark.9"} ff={robotoMono.style.fontFamily}>{line.message}</Text>
                         </td>
                     </tr>
                 ))}

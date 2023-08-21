@@ -13,7 +13,7 @@ export default function AppLayout({ children }: PropsWithChildren) {
     return (
         <DashboardLayout rewriteSpacing={true}>
             <DetailedAppDock />
-            <Stack w={"100%"}>
+            <Stack w={"100%"} pb={72}>
                 <Accordion defaultValue={"logs"} variant="filled">
                     <Accordion.Item value="logs">
                         <Accordion.Control
